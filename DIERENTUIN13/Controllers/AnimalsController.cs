@@ -46,6 +46,37 @@ namespace DIERENTUIN13.Controllers
             return View(animal);
         }
 
+
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var animals = from a in _context.Animal.Include(a => a.Category).Include(a => a.Enclosure)
+                          select a;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                animals = animals.Where(s => s.Name.Contains(searchString) ||
+                                             s.Species.Contains(searchString) ||
+                                             s.Category.Name.Contains(searchString) ||
+                                             s.Enclosure.Name.Contains(searchString) ||
+                                             s.Size.ToString().Contains(searchString) ||
+                                             s.DietaryClass.ToString().Contains(searchString) ||
+                                             s.ActivityPattern.ToString().Contains(searchString) ||
+                                             s.SpaceRequirement.ToString().Contains(searchString) ||
+                                             s.SecurityRequirement.ToString().Contains(searchString));
+            }
+
+            return View("Index", await animals.ToListAsync());
+        }
+
+
+
+
+
+
+
+
+
+
         // GET: Animals/Create
         public IActionResult Create()
         {
@@ -79,7 +110,6 @@ namespace DIERENTUIN13.Controllers
             return View(animal);
         }
 
-        // GET: Animals/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -92,10 +122,18 @@ namespace DIERENTUIN13.Controllers
             {
                 return NotFound();
             }
+
             ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Name", animal.CategoryId);
             ViewData["EnclosureId"] = new SelectList(_context.Set<Enclosure>(), "Id", "Name", animal.EnclosureId);
+
+            ViewData["Sizes"] = Enum.GetValues(typeof(SizeEnum)).Cast<SizeEnum>();
+            ViewData["DietaryClasses"] = Enum.GetValues(typeof(DietaryClassEnum)).Cast<DietaryClassEnum>();
+            ViewData["ActivityPatterns"] = Enum.GetValues(typeof(ActivityPatternEnum)).Cast<ActivityPatternEnum>();
+            ViewData["SecurityRequirements"] = Enum.GetValues(typeof(SecurityLevelEnum)).Cast<SecurityLevelEnum>();
+
             return View(animal);
         }
+
 
         // POST: Animals/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -129,10 +167,18 @@ namespace DIERENTUIN13.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Name", animal.CategoryId);
             ViewData["EnclosureId"] = new SelectList(_context.Set<Enclosure>(), "Id", "Name", animal.EnclosureId);
+
+            ViewData["Sizes"] = Enum.GetValues(typeof(SizeEnum)).Cast<SizeEnum>();
+            ViewData["DietaryClasses"] = Enum.GetValues(typeof(DietaryClassEnum)).Cast<DietaryClassEnum>();
+            ViewData["ActivityPatterns"] = Enum.GetValues(typeof(ActivityPatternEnum)).Cast<ActivityPatternEnum>();
+            ViewData["SecurityRequirements"] = Enum.GetValues(typeof(SecurityLevelEnum)).Cast<SecurityLevelEnum>();
+
             return View(animal);
         }
+
 
         // GET: Animals/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -173,5 +219,8 @@ namespace DIERENTUIN13.Controllers
         {
             return _context.Animal.Any(e => e.Id == id);
         }
+
+
+
     }
 }
