@@ -46,6 +46,7 @@ namespace DIERENTUIN13.Controllers
 
             var enclosure = await _context.Enclosure
                 .Include(e => e.Zoo)
+                .Include(e => e.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (enclosure == null)
             {
