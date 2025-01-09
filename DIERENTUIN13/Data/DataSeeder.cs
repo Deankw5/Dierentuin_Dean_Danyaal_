@@ -20,6 +20,7 @@ namespace DIERENTUIN13.Data
             _context.Animal.RemoveRange(_context.Animal);
             _context.Category.RemoveRange(_context.Category);
             _context.Enclosure.RemoveRange(_context.Enclosure);
+            _context.Zoo.RemoveRange(_context.Zoo);
             _context.SaveChanges();
 
             // Seed Categories
@@ -30,6 +31,14 @@ namespace DIERENTUIN13.Data
             _context.Category.AddRange(categories);
             _context.SaveChanges();
 
+            // Seed Zoos
+            var zoos = new Faker<Zoo>()
+                .RuleFor(z => z.Name, f => f.Company.CompanyName())
+                .Generate(3);
+
+            _context.Zoo.AddRange(zoos);
+            _context.SaveChanges();
+
             // Seed Enclosures
             var enclosures = new Faker<Enclosure>()
                 .RuleFor(e => e.Name, f => f.PickRandom(new[] { "Savannah", "Rainforest", "Desert", "Aquarium", "Aviary" }))
@@ -37,6 +46,7 @@ namespace DIERENTUIN13.Data
                 .RuleFor(e => e.HabitatType, f => f.PickRandom<HabitatTypeEnum>())
                 .RuleFor(e => e.SecurityLevel, f => f.PickRandom<SecurityLevelEnum>())
                 .RuleFor(e => e.Size, f => f.Random.Double(500, 2000))
+                .RuleFor(e => e.ZooId, f => f.PickRandom(zoos).Id)
                 .Generate(5);
 
             _context.Enclosure.AddRange(enclosures);

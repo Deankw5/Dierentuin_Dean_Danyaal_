@@ -25,6 +25,10 @@
 
         [Required]
         public double Size { get; set; } // in m²
+
+        // Relatie met Zoo (nullable)
+        public int? ZooId { get; set; }
+        public Zoo? Zoo { get; set; }
     }
 
     public enum ClimateEnum
@@ -42,5 +46,4 @@
         Desert = 4,
         Grassland = 8
     }
-
 }

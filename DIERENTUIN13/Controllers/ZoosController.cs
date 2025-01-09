@@ -20,10 +20,22 @@ namespace DIERENTUIN13.Controllers
         }
 
         // GET: Zoos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Zoo.ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+
+            var zoos = from z in _context.Zoo
+                       select z;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                zoos = zoos.Where(s => s.Name.Contains(searchString));
+            }
+
+            return View(await zoos.ToListAsync());
         }
+
+       
 
         // GET: Zoos/Details/5
         public async Task<IActionResult> Details(int? id)

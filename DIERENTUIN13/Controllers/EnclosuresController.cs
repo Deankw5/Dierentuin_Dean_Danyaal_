@@ -22,15 +22,15 @@ namespace DIERENTUIN13.Controllers
         // GET: Enclosures
         public async Task<IActionResult> Index(string searchString)
         {
-            var enclosures = from e in _context.Enclosure
-                             select e;
+            var enclosures = _context.Enclosure.Include(e => e.Zoo).AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 enclosures = enclosures.Where(s => s.Name.Contains(searchString) ||
                                                    s.Climate.ToString().Contains(searchString) ||
                                                    s.HabitatType.ToString().Contains(searchString) ||
-                                                   s.SecurityLevel.ToString().Contains(searchString));
+                                                   s.SecurityLevel.ToString().Contains(searchString) ||
+                                                   s.Zoo.Name.Contains(searchString));
             }
 
             return View(await enclosures.ToListAsync());
@@ -45,6 +45,7 @@ namespace DIERENTUIN13.Controllers
             }
 
             var enclosure = await _context.Enclosure
+                .Include(e => e.Zoo)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (enclosure == null)
             {
@@ -57,10 +58,9 @@ namespace DIERENTUIN13.Controllers
         // GET: Enclosures/Create
         public IActionResult Create()
         {
-            // Haal de lijst van alle dieren op en zet deze in de ViewData
+            ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name");
             ViewData["Animals"] = new SelectList(_context.Animal, "Id", "Name");
 
-            // De rest van de ViewData voor enums blijft hetzelfde
             ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
                 .Cast<ClimateEnum>()
                 .Select(e => new SelectListItem
@@ -99,7 +99,7 @@ namespace DIERENTUIN13.Controllers
         // POST: Enclosures/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Climate,HabitatType,SecurityLevel,Size,Animals")] Enclosure enclosure)
+        public async Task<IActionResult> Create([Bind("Id,Name,Climate,HabitatType,SecurityLevel,Size,ZooId,Animals")] Enclosure enclosure)
         {
             if (ModelState.IsValid)
             {
@@ -108,12 +108,11 @@ namespace DIERENTUIN13.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Haal opnieuw de lijst van dieren op voor de weergave van de dropdown bij validatiefouten
+            ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure.ZooId);
             ViewData["Animals"] = new SelectList(_context.Animal, "Id", "Name", enclosure.Animals.Select(a => a.Id));
 
             return View(enclosure);
         }
-
 
         // GET: Enclosures/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -128,15 +127,15 @@ namespace DIERENTUIN13.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure.ZooId);
             return View(enclosure);
         }
 
         // POST: Enclosures/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Climate,HabitatType,SecurityLevel,Size")] Enclosure enclosure)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Climate,HabitatType,SecurityLevel,Size,ZooId")] Enclosure enclosure)
         {
             if (id != enclosure.Id)
             {
@@ -163,6 +162,8 @@ namespace DIERENTUIN13.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure.ZooId);
             return View(enclosure);
         }
 
@@ -175,6 +176,7 @@ namespace DIERENTUIN13.Controllers
             }
 
             var enclosure = await _context.Enclosure
+                .Include(e => e.Zoo)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (enclosure == null)
             {

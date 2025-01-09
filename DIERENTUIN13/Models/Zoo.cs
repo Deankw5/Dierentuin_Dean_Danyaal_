@@ -13,9 +13,5 @@
 
         // Relatie met Enclosures
         public List<Enclosure> Enclosures { get; set; } = new List<Enclosure>();
-
-        // Relatie met Animals (via Enclosures of zelfstandig)
-        public List<Animal> Animals { get; set; } = new List<Animal>();
     }
-
 }
