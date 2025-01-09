@@ -20,9 +20,17 @@ namespace DIERENTUIN13.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Category.ToListAsync());
+            var categories = from c in _context.Category
+                             select c;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                categories = categories.Where(s => s.Name.Contains(searchString));
+            }
+
+            return View(await categories.ToListAsync());
         }
 
         // GET: Categories/Details/5

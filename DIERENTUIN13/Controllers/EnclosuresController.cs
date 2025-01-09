@@ -20,9 +20,20 @@ namespace DIERENTUIN13.Controllers
         }
 
         // GET: Enclosures
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Enclosure.ToListAsync());
+            var enclosures = from e in _context.Enclosure
+                             select e;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                enclosures = enclosures.Where(s => s.Name.Contains(searchString) ||
+                                                   s.Climate.ToString().Contains(searchString) ||
+                                                   s.HabitatType.ToString().Contains(searchString) ||
+                                                   s.SecurityLevel.ToString().Contains(searchString));
+            }
+
+            return View(await enclosures.ToListAsync());
         }
 
         // GET: Enclosures/Details/5
