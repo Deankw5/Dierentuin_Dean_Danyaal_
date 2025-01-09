@@ -106,47 +106,42 @@
 @section Scripts {
     <script>
         document.getElementById('sunriseButton').addEventListener('click', function () {
-            filterAnimals('sunrise');
+            fetchActions('Sunrise');
         });
 
         document.getElementById('sunsetButton').addEventListener('click', function () {
-            filterAnimals('sunset');
+            fetchActions('Sunset');
         });
 
         document.getElementById('feedingTimeButton').addEventListener('click', function () {
-            filterAnimals('feedingTime');
+            fetchActions('FeedingTime');
         });
 
-        function filterAnimals(timeOfDay) {
-            var rows = document.querySelectorAll('.animal-row');
-            rows.forEach(function (row) {
-                var actionCell = row.querySelector('.action-cell');
-                var sunriseAction = actionCell.querySelector('.sunrise-action');
-                var sunsetAction = actionCell.querySelector('.sunset-action');
-                var feedingTimeAction = actionCell.querySelector('.feeding-time-action');
+        function fetchActions(actionType) {
+            fetch(`/api/AnimalsApi/${actionType}`)
+                .then(response => response.json())
+                .then(data => {
+                    var rows = document.querySelectorAll('.animal-row');
+                    rows.forEach(function (row) {
+                        var name = row.querySelector('td:first-child').innerText;
+                        var actionCell = row.querySelector('.action-cell');
+                        var action = data.find(d => d.name === name)?.action || '';
 
-                if (timeOfDay === 'sunrise') {
-                    sunriseAction.style.display = '';
-                    sunsetAction.style.display = 'none';
-                    feedingTimeAction.style.display = 'none';
-                    row.style.display = '';
-                } else if (timeOfDay === 'sunset') {
-                    sunriseAction.style.display = 'none';
-                    sunsetAction.style.display = '';
-                    feedingTimeAction.style.display = 'none';
-                    row.style.display = '';
-                } else if (timeOfDay === 'feedingTime') {
-                    sunriseAction.style.display = 'none';
-                    sunsetAction.style.display = 'none';
-                    feedingTimeAction.style.display = '';
-                    row.style.display = '';
-                }
-            });
+                        if (actionType === 'Sunrise') {
+                            actionCell.innerHTML = `Sunrise: ${action}`;
+                        } else if (actionType === 'Sunset') {
+                            actionCell.innerHTML = `Sunset: ${action}`;
+                        } else if (actionType === 'FeedingTime') {
+                            actionCell.innerHTML = `Feeding Time: ${action}`;
+                        }
+                    });
+                });
         }
 
         // Automatically display sunrise actions when the page loads
         document.addEventListener('DOMContentLoaded', function () {
-            filterAnimals('sunrise');
+            fetchActions('Sunrise');
         });
     </script>
 }
+

@@ -1,12 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using DIERENTUIN13.Data;
+using DIERENTUIN13.Models;
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<DIERENTUIN13Context>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DIERENTUIN13Context") ?? throw new InvalidOperationException("Connection string 'DIERENTUIN13Context' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+builder.Services.AddControllers(); // Add this line to include API controllers
+
+// Configure the database context
+builder.Services.AddDbContext<DIERENTUIN13Context>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DIERENTUIN13Context")));
 
 var app = builder.Build();
 
@@ -14,7 +19,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -28,5 +32,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
+app.MapControllers(); // Add this line to map API controllers
 
 app.Run();
