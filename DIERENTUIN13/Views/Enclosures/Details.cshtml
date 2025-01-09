@@ -47,7 +47,7 @@
             @Html.DisplayFor(model => model.Size) m²
         </dd>
         <dt class="col-sm-2">
-            ZooName
+            ZooName (ID: @Model.Zoo.Id)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Zoo.Name)
@@ -60,7 +60,7 @@
     <ul>
         @foreach (var animal in Model.Animals)
         {
-            <li>@animal.Name</li>
+            <li>@animal.Id - @animal.Name</li>
         }
     </ul>
 </div>
@@ -69,3 +69,6 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+

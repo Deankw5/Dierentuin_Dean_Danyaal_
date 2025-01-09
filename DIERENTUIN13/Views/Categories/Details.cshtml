@@ -30,7 +30,7 @@
     <ul>
         @foreach (var animal in Model.Animals)
         {
-            <li>@animal.Name</li>
+            <li>@animal.Id - @animal.Name</li>
         }
     </ul>
 </div>
@@ -39,3 +39,5 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
