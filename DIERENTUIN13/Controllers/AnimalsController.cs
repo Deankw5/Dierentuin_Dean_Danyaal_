@@ -88,16 +88,14 @@ namespace DIERENTUIN13.Controllers
             ViewData["ActivityPatterns"] = Enum.GetValues(typeof(ActivityPatternEnum)).Cast<ActivityPatternEnum>();
             ViewData["SecurityRequirements"] = Enum.GetValues(typeof(SecurityLevelEnum)).Cast<SecurityLevelEnum>();
 
+            ViewData["Prey"] = new SelectList(_context.Animal, "Id", "Name");
+
             return View();
         }
 
-
-        // POST: Animals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,EnclosureId,SpaceRequirement,SecurityRequirement")] Animal animal)
+        public async Task<IActionResult> Create([Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,Prey,EnclosureId,SpaceRequirement,SecurityRequirement")] Animal animal)
         {
             if (ModelState.IsValid)
             {
@@ -109,6 +107,9 @@ namespace DIERENTUIN13.Controllers
             ViewData["EnclosureId"] = new SelectList(_context.Set<Enclosure>(), "Id", "Name", animal.EnclosureId);
             return View(animal);
         }
+
+
+
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -135,12 +136,9 @@ namespace DIERENTUIN13.Controllers
         }
 
 
-        // POST: Animals/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,EnclosureId,SpaceRequirement,SecurityRequirement")] Animal animal)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,Prey,EnclosureId,SpaceRequirement,SecurityRequirement")] Animal animal)
         {
             if (id != animal.Id)
             {
@@ -178,6 +176,9 @@ namespace DIERENTUIN13.Controllers
 
             return View(animal);
         }
+
+
+
 
 
         // GET: Animals/Delete/5

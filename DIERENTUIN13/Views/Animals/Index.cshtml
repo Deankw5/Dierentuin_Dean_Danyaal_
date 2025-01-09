@@ -21,6 +21,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -39,6 +42,9 @@
                 @Html.DisplayNameFor(model => model.ActivityPattern)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Prey)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Enclosure)
             </th>
             <th>
@@ -54,6 +60,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -72,6 +81,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ActivityPattern)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prey)
+                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Enclosure.Name)
                 </td>

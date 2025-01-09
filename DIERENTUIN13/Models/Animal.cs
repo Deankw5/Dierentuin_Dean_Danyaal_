@@ -29,18 +29,23 @@
         [Required]
         public ActivityPatternEnum ActivityPattern { get; set; }
 
-        public List<Animal>? Prey { get; set; } = new List<Animal>();
+        [MaxLength(500)]
+        public string Prey { get; set; } // Prey as a comma-separated string
 
         // Relatie met Enclosure (nullable)
         public int? EnclosureId { get; set; }
         public Enclosure? Enclosure { get; set; }
 
         [Required]
-        public double SpaceRequirement { get; set; } // in m² per dier
+        public double SpaceRequirement { get; set; }
 
+        // in m² per dier
         [Required]
         public SecurityLevelEnum SecurityRequirement { get; set; }
     }
+
+
+
 
     public enum SizeEnum
     {
