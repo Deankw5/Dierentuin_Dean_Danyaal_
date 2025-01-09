@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DIERENTUIN13.Models.Animal>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Animals";
 }
 
 <h1>Animals</h1>
@@ -10,19 +10,22 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<form asp-action="Filter" method="get">
+<form asp-action="Index" method="get">
     <p>
-        Find by name or species: <input type="text" name="searchString" />
+        Find by name, species, or category: <input type="text" name="searchString" />
         <input type="submit" value="Search" />
     </p>
 </form>
 
-<table class="table">
+<div>
+    <button id="sunriseButton" class="btn btn-primary">Sunrise</button>
+    <button id="sunsetButton" class="btn btn-secondary">Sunset</button>
+    <button id="feedingTimeButton" class="btn btn-success">Feeding Time</button>
+</div>
+
+<table class="table" id="animalsTable">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -42,9 +45,6 @@
                 @Html.DisplayNameFor(model => model.ActivityPattern)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prey)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Enclosure)
             </th>
             <th>
@@ -53,16 +53,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.SecurityRequirement)
             </th>
+            <th>Action</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
+            <tr class="animal-row" data-activity-pattern="@item.ActivityPattern">
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -82,10 +80,6 @@
                     @Html.DisplayFor(modelItem => item.ActivityPattern)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Prey)
-                </td>
-
-                <td>
                     @Html.DisplayFor(modelItem => item.Enclosure.Name)
                 </td>
                 <td>
@@ -93,6 +87,11 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SecurityRequirement)
+                </td>
+                <td class="action-cell">
+                    <span class="sunrise-action">Sunrise: @item.ActieSunrise()</span>
+                    <span class="sunset-action">Sunset: @item.ActieSunset()</span>
+                    <span class="feeding-time-action">Feeding Time: @item.ActieFeedingTime()</span>
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -103,3 +102,51 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        document.getElementById('sunriseButton').addEventListener('click', function () {
+            filterAnimals('sunrise');
+        });
+
+        document.getElementById('sunsetButton').addEventListener('click', function () {
+            filterAnimals('sunset');
+        });
+
+        document.getElementById('feedingTimeButton').addEventListener('click', function () {
+            filterAnimals('feedingTime');
+        });
+
+        function filterAnimals(timeOfDay) {
+            var rows = document.querySelectorAll('.animal-row');
+            rows.forEach(function (row) {
+                var actionCell = row.querySelector('.action-cell');
+                var sunriseAction = actionCell.querySelector('.sunrise-action');
+                var sunsetAction = actionCell.querySelector('.sunset-action');
+                var feedingTimeAction = actionCell.querySelector('.feeding-time-action');
+
+                if (timeOfDay === 'sunrise') {
+                    sunriseAction.style.display = '';
+                    sunsetAction.style.display = 'none';
+                    feedingTimeAction.style.display = 'none';
+                    row.style.display = '';
+                } else if (timeOfDay === 'sunset') {
+                    sunriseAction.style.display = 'none';
+                    sunsetAction.style.display = '';
+                    feedingTimeAction.style.display = 'none';
+                    row.style.display = '';
+                } else if (timeOfDay === 'feedingTime') {
+                    sunriseAction.style.display = 'none';
+                    sunsetAction.style.display = 'none';
+                    feedingTimeAction.style.display = '';
+                    row.style.display = '';
+                }
+            });
+        }
+
+        // Automatically display sunrise actions when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            filterAnimals('sunrise');
+        });
+    </script>
+}

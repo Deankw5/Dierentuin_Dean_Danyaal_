@@ -1,7 +1,6 @@
 ﻿namespace DIERENTUIN13.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Animal
     {
@@ -42,10 +41,34 @@
         // in m² per dier
         [Required]
         public SecurityLevelEnum SecurityRequirement { get; set; }
+
+        public string ActieSunrise()
+        {
+            return ActivityPattern switch
+            {
+                ActivityPatternEnum.Diurnal => "Wakes up",
+                ActivityPatternEnum.Nocturnal => "Goes to sleep",
+                ActivityPatternEnum.Cathemeral => "Always active",
+                _ => "Unknown"
+            };
+        }
+
+        public string ActieSunset()
+        {
+            return ActivityPattern switch
+            {
+                ActivityPatternEnum.Diurnal => "Goes to sleep",
+                ActivityPatternEnum.Nocturnal => "Wakes up",
+                ActivityPatternEnum.Cathemeral => "Always active",
+                _ => "Unknown"
+            };
+        }
+
+        public string ActieFeedingTime()
+        {
+            return $"Eats: {Prey}";
+        }
     }
-
-
-
 
     public enum SizeEnum
     {
@@ -79,5 +102,4 @@
         Medium,
         High
     }
-
 }
