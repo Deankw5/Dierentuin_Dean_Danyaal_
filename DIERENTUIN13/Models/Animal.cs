@@ -29,7 +29,7 @@
         public ActivityPatternEnum ActivityPattern { get; set; }
 
         [MaxLength(500)]
-        public string Prey { get; set; } // Prey as a comma-separated string
+        public string Prey { get; set; }
 
         // Relatie met Enclosure (nullable)
         public int? EnclosureId { get; set; }
@@ -38,7 +38,6 @@
         [Required]
         public double SpaceRequirement { get; set; }
 
-        // in m² per dier
         [Required]
         public SecurityLevelEnum SecurityRequirement { get; set; }
 
