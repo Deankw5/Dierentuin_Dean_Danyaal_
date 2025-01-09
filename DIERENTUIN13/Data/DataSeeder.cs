@@ -16,14 +16,15 @@ namespace DIERENTUIN13.Data
 
         public void Seed()
         {
-            if (_context.Animal.Any() || _context.Category.Any() || _context.Enclosure.Any())
-            {
-                return; // DB has been seeded
-            }
+            // Clear existing data
+            _context.Animal.RemoveRange(_context.Animal);
+            _context.Category.RemoveRange(_context.Category);
+            _context.Enclosure.RemoveRange(_context.Enclosure);
+            _context.SaveChanges();
 
             // Seed Categories
             var categories = new Faker<Category>()
-                .RuleFor(c => c.Name, f => f.Commerce.Categories(1)[0])
+                .RuleFor(c => c.Name, f => f.PickRandom(new[] { "Mammals", "Birds", "Reptiles", "Amphibians", "Fish" }))
                 .Generate(5);
 
             _context.Category.AddRange(categories);
@@ -31,7 +32,7 @@ namespace DIERENTUIN13.Data
 
             // Seed Enclosures
             var enclosures = new Faker<Enclosure>()
-                .RuleFor(e => e.Name, f => f.Address.City())
+                .RuleFor(e => e.Name, f => f.PickRandom(new[] { "Savannah", "Rainforest", "Desert", "Aquarium", "Aviary" }))
                 .RuleFor(e => e.Climate, f => f.PickRandom<ClimateEnum>())
                 .RuleFor(e => e.HabitatType, f => f.PickRandom<HabitatTypeEnum>())
                 .RuleFor(e => e.SecurityLevel, f => f.PickRandom<SecurityLevelEnum>())
@@ -43,13 +44,13 @@ namespace DIERENTUIN13.Data
 
             // Seed Animals
             var animals = new Faker<Animal>()
-                .RuleFor(a => a.Name, f => f.Name.FirstName())
-                .RuleFor(a => a.Species, f => f.Name.FirstName())
+                .RuleFor(a => a.Name, f => f.PickRandom(new[] { "Lion", "Elephant", "Crocodile", "Frog", "Shark" }))
+                .RuleFor(a => a.Species, f => f.PickRandom(new[] { "Panthera leo", "Loxodonta africana", "Crocodylus niloticus", "Rana temporaria", "Carcharodon carcharias" }))
                 .RuleFor(a => a.CategoryId, f => f.PickRandom(categories).Id)
                 .RuleFor(a => a.Size, f => f.PickRandom<SizeEnum>())
                 .RuleFor(a => a.DietaryClass, f => f.PickRandom<DietaryClassEnum>())
                 .RuleFor(a => a.ActivityPattern, f => f.PickRandom<ActivityPatternEnum>())
-                .RuleFor(a => a.Prey, f => string.Join(", ", f.Lorem.Words(3)))
+                .RuleFor(a => a.Prey, f => string.Join(", ", f.PickRandom(new[] { "Zebra", "Buffalo", "Fish", "Insects", "Small mammals" }, 3)))
                 .RuleFor(a => a.EnclosureId, f => f.PickRandom(enclosures).Id)
                 .RuleFor(a => a.SpaceRequirement, f => f.Random.Double(10, 100))
                 .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityLevelEnum>())
