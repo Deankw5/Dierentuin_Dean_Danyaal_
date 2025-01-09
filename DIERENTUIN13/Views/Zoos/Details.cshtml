@@ -1,24 +1,55 @@
 ﻿@model DIERENTUIN13.Models.Zoo
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Zoo Details";
 }
 
-<h1>Details</h1>
+<h1>Zoo Details</h1>
 
 <div>
     <h4>Zoo</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
         </dd>
     </dl>
 </div>
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <h4>Enclosures in this Zoo</h4>
+    <ul>
+        @foreach (var enclosure in Model.Enclosures)
+        {
+            <li>@enclosure.Name</li>
+        }
+    </ul>
+</div>
+
+<div>
+    <h4>Animals in this Zoo</h4>
+    <ul>
+        @foreach (var enclosure in Model.Enclosures)
+        {
+            @foreach (var animal in enclosure.Animals)
+            {
+                <li>@animal.Name</li>
+            }
+        }
+    </ul>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+

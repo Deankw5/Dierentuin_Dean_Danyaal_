@@ -35,7 +35,7 @@ namespace DIERENTUIN13.Controllers
             return View(await zoos.ToListAsync());
         }
 
-       
+
 
         // GET: Zoos/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -46,6 +46,8 @@ namespace DIERENTUIN13.Controllers
             }
 
             var zoo = await _context.Zoo
+                .Include(z => z.Enclosures)
+                    .ThenInclude(e => e.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (zoo == null)
             {
