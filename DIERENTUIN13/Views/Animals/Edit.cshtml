@@ -76,7 +76,7 @@
                 <input asp-for="Prey" class="form-control" />
                 <span asp-validation-for="Prey" class="text-danger"></span>
             </div>
-            <!-- Submit button -->
+            <!-- Save button for submitting changes -->
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -84,9 +84,9 @@
     </div>
 </div>
 
-<!-- Back to List link -->
+<!-- Navigation link to return to the Zoo list -->
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 <!-- Validation scripts -->
