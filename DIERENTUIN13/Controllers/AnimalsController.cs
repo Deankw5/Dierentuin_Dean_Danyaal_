@@ -12,22 +12,17 @@ namespace DIERENTUIN13.Controllers
 {
     public class AnimalsController : Controller
     {
-        private readonly DIERENTUIN13Context _context;
+       
+            private readonly DIERENTUIN13Context _context;
 
-        public AnimalsController(DIERENTUIN13Context context)
-        {
-            _context = context;
-        }
+            public AnimalsController(DIERENTUIN13Context context)
+            {
+                _context = context;
+            }
 
-        // GET: Animals
-        public async Task<IActionResult> Index()
-        {
-            var dIERENTUIN13Context = _context.Animal.Include(a => a.Category).Include(a => a.Enclosure);
-            return View(await dIERENTUIN13Context.ToListAsync());
-        }
 
-        // GET: Animals/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: Animals/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -47,6 +42,14 @@ namespace DIERENTUIN13.Controllers
         }
 
 
+        // GET: Animals
+        public async Task<IActionResult> Index()
+        {
+            var animals = await _context.Animal.Include(a => a.Category).Include(a => a.Enclosure).ToListAsync();
+            return View(animals);
+        }
+
+        // GET: Animals/Filter
         public async Task<IActionResult> Filter(string searchString)
         {
             var animals = from a in _context.Animal.Include(a => a.Category).Include(a => a.Enclosure)
@@ -67,7 +70,6 @@ namespace DIERENTUIN13.Controllers
 
             return View("Index", await animals.ToListAsync());
         }
-
 
 
 
