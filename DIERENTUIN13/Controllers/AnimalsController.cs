@@ -95,6 +95,9 @@ namespace DIERENTUIN13.Controllers
             return View();
         }
 
+
+        // POST Animals/create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,Prey,EnclosureId,SpaceRequirement,SecurityRequirement")] Animal animal)
@@ -112,7 +115,7 @@ namespace DIERENTUIN13.Controllers
 
 
 
-
+        //POST Animals edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -137,7 +140,7 @@ namespace DIERENTUIN13.Controllers
             return View(animal);
         }
 
-
+        //GET Animals/edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,Prey,EnclosureId,SpaceRequirement,SecurityRequirement")] Animal animal)

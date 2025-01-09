@@ -6,6 +6,7 @@
 
 <h1>Enclosures</h1>
 
+<!-- Search form -->
 <form asp-action="Index" method="get">
     <p>
         Find by name: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
@@ -13,10 +14,12 @@
     </p>
 </form>
 
+<!-- Link to create a new enclosure -->
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 
+<!-- Table to display enclosures -->
 <table class="table">
     <thead>
         <tr>
@@ -72,3 +75,4 @@
         }
     </tbody>
 </table>
+

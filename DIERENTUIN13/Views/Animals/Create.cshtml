@@ -11,41 +11,49 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            <!-- Name input field -->
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <!-- Species input field -->
             <div class="form-group">
                 <label asp-for="Species" class="control-label"></label>
                 <input asp-for="Species" class="form-control" />
                 <span asp-validation-for="Species" class="text-danger"></span>
             </div>
+            <!-- Category dropdown -->
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label">Category</label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
+            <!-- Size dropdown -->
             <div class="form-group">
                 <label asp-for="Size" class="control-label"></label>
                 <select asp-for="Size" class="form-control" asp-items="@(new SelectList(ViewBag.Sizes))"></select>
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
+            <!-- Dietary Class dropdown -->
             <div class="form-group">
                 <label asp-for="DietaryClass" class="control-label"></label>
                 <select asp-for="DietaryClass" class="form-control" asp-items="@(new SelectList(ViewBag.DietaryClasses))"></select>
                 <span asp-validation-for="DietaryClass" class="text-danger"></span>
             </div>
+            <!-- Activity Pattern dropdown -->
             <div class="form-group">
                 <label asp-for="ActivityPattern" class="control-label"></label>
                 <select asp-for="ActivityPattern" class="form-control" asp-items="@(new SelectList(ViewBag.ActivityPatterns))"></select>
                 <span asp-validation-for="ActivityPattern" class="text-danger"></span>
             </div>
+            <!-- Enclosure dropdown -->
             <div class="form-group">
                 <label asp-for="EnclosureId" class="control-label">Enclosure</label>
                 <select asp-for="EnclosureId" class="form-control" asp-items="ViewBag.EnclosureId"></select>
                 <span asp-validation-for="EnclosureId" class="text-danger"></span>
             </div>
+            <!-- Space Requirement input field with unit -->
             <div class="form-group">
                 <label asp-for="SpaceRequirement" class="control-label"></label>
                 <div class="input-group">
@@ -56,16 +64,19 @@
                 </div>
                 <span asp-validation-for="SpaceRequirement" class="text-danger"></span>
             </div>
+            <!-- Security Requirement dropdown -->
             <div class="form-group">
                 <label asp-for="SecurityRequirement" class="control-label"></label>
                 <select asp-for="SecurityRequirement" class="form-control" asp-items="@(new SelectList(ViewBag.SecurityRequirements))"></select>
                 <span asp-validation-for="SecurityRequirement" class="text-danger"></span>
             </div>
+            <!-- Prey input field -->
             <div class="form-group">
                 <label asp-for="Prey" class="control-label"></label>
                 <input asp-for="Prey" class="form-control" />
                 <span asp-validation-for="Prey" class="text-danger"></span>
             </div>
+            <!-- Submit button -->
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -73,15 +84,18 @@
     </div>
 </div>
 
+<!-- Back to List link -->
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
+<!-- Validation scripts -->
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
 
 
 

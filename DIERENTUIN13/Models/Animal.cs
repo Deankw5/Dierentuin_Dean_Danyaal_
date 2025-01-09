@@ -15,7 +15,7 @@
         [MaxLength(100)]
         public string Species { get; set; }
 
-        // Relatie met Category (nullable)
+        // Relationship with Category (nullable)
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
 
@@ -31,7 +31,7 @@
         [MaxLength(500)]
         public string Prey { get; set; }
 
-        // Relatie met Enclosure (nullable)
+        // Relationship with Enclosure (nullable)
         public int? EnclosureId { get; set; }
         public Enclosure? Enclosure { get; set; }
 
@@ -41,6 +41,7 @@
         [Required]
         public SecurityLevelEnum SecurityRequirement { get; set; }
 
+        // Method to get the action at sunrise based on the activity pattern
         public string ActieSunrise()
         {
             return ActivityPattern switch
@@ -52,6 +53,7 @@
             };
         }
 
+        // Method to get the action at sunset based on the activity pattern
         public string ActieSunset()
         {
             return ActivityPattern switch
@@ -63,12 +65,14 @@
             };
         }
 
+        // Method to get the feeding time action
         public string ActieFeedingTime()
         {
             return $"Eats: {Prey}";
         }
     }
 
+    // Enum for Size
     public enum SizeEnum
     {
         Microscopic,
@@ -79,6 +83,7 @@
         VeryLarge
     }
 
+    // Enum for Dietary Class
     public enum DietaryClassEnum
     {
         Carnivore,
@@ -88,13 +93,15 @@
         Piscivore
     }
 
+    // Enum for Activity Pattern
     public enum ActivityPatternEnum
     {
-        Diurnal,  // Dagactief
-        Nocturnal, // Nachtactief
-        Cathemeral // Afwisselend actief
+        Diurnal,  // Active during the day
+        Nocturnal, // Active during the night
+        Cathemeral // Active at intervals throughout the day and night
     }
 
+    // Enum for Security Level
     public enum SecurityLevelEnum
     {
         Low,
@@ -102,3 +109,4 @@
         High
     }
 }
+

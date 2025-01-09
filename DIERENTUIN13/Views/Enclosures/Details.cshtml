@@ -10,42 +10,49 @@
     <h4>Enclosure</h4>
     <hr />
     <dl class="row">
+        <!-- Display enclosure ID -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
+        <!-- Display enclosure name -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
+        <!-- Display enclosure climate -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Climate)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Climate)
         </dd>
+        <!-- Display enclosure habitat type -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.HabitatType)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.HabitatType)
         </dd>
+        <!-- Display enclosure security level -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SecurityLevel)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SecurityLevel)
         </dd>
+        <!-- Display enclosure size -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Size)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Size) m²
         </dd>
+        <!-- Display zoo name and ID -->
         <dt class="col-sm-2">
             ZooName (ID: @Model.Zoo.Id)
         </dt>
@@ -58,6 +65,7 @@
 <div>
     <h4>Animals in this Enclosure</h4>
     <ul>
+        <!-- Display list of animals in this enclosure -->
         @foreach (var animal in Model.Animals)
         {
             <li>@animal.Id - @animal.Name</li>
@@ -65,10 +73,13 @@
     </ul>
 </div>
 
+<!-- Links to edit the enclosure and go back to the list -->
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
 
 
 

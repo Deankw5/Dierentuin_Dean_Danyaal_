@@ -1,5 +1,6 @@
 ﻿namespace DIERENTUIN13.Models
 {
+    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
 
     public class Zoo
@@ -9,9 +10,13 @@
 
         [Required]
         [MaxLength(100)]
+       
         public string Name { get; set; }
 
         // Relatie met Enclosures
         public List<Enclosure> Enclosures { get; set; } = new List<Enclosure>();
     }
+
+
+
 }

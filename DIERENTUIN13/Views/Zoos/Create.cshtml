@@ -1,22 +1,31 @@
 ﻿@model DIERENTUIN13.Models.Zoo
 
 @{
-    ViewData["Title"] = "Create";
+    // Set the page title dynamically
+    ViewData["Title"] = "Create Zoo";
 }
 
-<h1>Create</h1>
+<h1>Create Zoo</h1>
 
 <h4>Zoo</h4>
 <hr />
+
+<!-- Main form container -->
 <div class="row">
     <div class="col-md-4">
+        <!-- Form for creating a Zoo -->
         <form asp-action="Create">
+            <!-- Validation summary for displaying model validation errors -->
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Input field for Zoo name -->
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+
+            <!-- Submit button -->
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -24,10 +33,14 @@
     </div>
 </div>
 
+<!-- Navigation link to go back to the Zoo list -->
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <!-- Include client-side validation scripts -->
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

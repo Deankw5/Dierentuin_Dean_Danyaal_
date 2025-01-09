@@ -13,16 +13,19 @@ namespace DIERENTUIN13.Controllers
             _logger = logger;
         }
 
+        // GET: Home/Index
         public IActionResult Index()
         {
             return View();
         }
 
+        // GET: Home/Privacy
         public IActionResult Privacy()
         {
             return View();
         }
 
+        // GET: Home/Error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -30,3 +33,4 @@ namespace DIERENTUIN13.Controllers
         }
     }
 }
+

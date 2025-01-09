@@ -59,31 +59,7 @@ namespace DIERENTUIN13.Controllers
         // GET: Enclosures/Create
         public IActionResult Create()
         {
-            ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name");
-            ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
-                .Cast<ClimateEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
-            ViewData["SecurityLevels"] = new SelectList(Enum.GetValues(typeof(SecurityLevelEnum))
-                .Cast<SecurityLevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
-            ViewData["HabitatTypes"] = new SelectList(Enum.GetValues(typeof(HabitatTypeEnum))
-                .Cast<HabitatTypeEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
+            PopulateViewData();
             return View();
         }
 
@@ -99,31 +75,7 @@ namespace DIERENTUIN13.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure.ZooId);
-            ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
-                .Cast<ClimateEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
-            ViewData["SecurityLevels"] = new SelectList(Enum.GetValues(typeof(SecurityLevelEnum))
-                .Cast<SecurityLevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
-            ViewData["HabitatTypes"] = new SelectList(Enum.GetValues(typeof(HabitatTypeEnum))
-                .Cast<HabitatTypeEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
+            PopulateViewData(enclosure);
             return View(enclosure);
         }
 
@@ -141,31 +93,7 @@ namespace DIERENTUIN13.Controllers
                 return NotFound();
             }
 
-            ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure.ZooId);
-            ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
-                .Cast<ClimateEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
-            ViewData["SecurityLevels"] = new SelectList(Enum.GetValues(typeof(SecurityLevelEnum))
-                .Cast<SecurityLevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
-            ViewData["HabitatTypes"] = new SelectList(Enum.GetValues(typeof(HabitatTypeEnum))
-                .Cast<HabitatTypeEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
+            PopulateViewData(enclosure);
             return View(enclosure);
         }
 
@@ -200,31 +128,7 @@ namespace DIERENTUIN13.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure.ZooId);
-            ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
-                .Cast<ClimateEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
-            ViewData["SecurityLevels"] = new SelectList(Enum.GetValues(typeof(SecurityLevelEnum))
-                .Cast<SecurityLevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
-            ViewData["HabitatTypes"] = new SelectList(Enum.GetValues(typeof(HabitatTypeEnum))
-                .Cast<HabitatTypeEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
+            PopulateViewData(enclosure);
             return View(enclosure);
         }
 
@@ -266,5 +170,37 @@ namespace DIERENTUIN13.Controllers
         {
             return _context.Enclosure.Any(e => e.Id == id);
         }
+
+        // Helper method to populate ViewData for dropdown lists
+        private void PopulateViewData(Enclosure enclosure = null)
+        {
+            ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure?.ZooId);
+            ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
+                .Cast<ClimateEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
+            ViewData["SecurityLevels"] = new SelectList(Enum.GetValues(typeof(SecurityLevelEnum))
+                .Cast<SecurityLevelEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
+            ViewData["HabitatTypes"] = new SelectList(Enum.GetValues(typeof(HabitatTypeEnum))
+                .Cast<HabitatTypeEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+        }
     }
 }
+
+
+

@@ -11,26 +11,27 @@
         [MaxLength(100)]
         public string Name { get; set; }
 
-        // Relatie met Animals
+        // Relationship with Animals
         public List<Animal> Animals { get; set; } = new List<Animal>();
 
         [Required]
         public ClimateEnum Climate { get; set; }
 
         [Required]
-        public HabitatTypeEnum HabitatType { get; set; } // Flags Enum
+        public HabitatTypeEnum HabitatType { get; set; }
 
         [Required]
         public SecurityLevelEnum SecurityLevel { get; set; }
 
         [Required]
-        public double Size { get; set; } // in m²
+        public double Size { get; set; }
 
-        // Relatie met Zoo (nullable)
+        // Relationship with Zoo (nullable)
         public int? ZooId { get; set; }
         public Zoo? Zoo { get; set; }
     }
 
+    // Enum for Climate
     public enum ClimateEnum
     {
         Tropical,
@@ -38,12 +39,17 @@
         Arctic
     }
 
-    [Flags]
+    // Enum for Habitat Type
     public enum HabitatTypeEnum
     {
-        Forest = 1,
-        Aquatic = 2,
-        Desert = 4,
-        Grassland = 8
+        Forest,
+        Desert,
+        Grassland,
+        Wetland,
+        Marine
     }
+
+ 
 }
+
+

@@ -14,6 +14,7 @@ namespace DIERENTUIN13.Data
         {
         }
 
+        // DbSet properties for each entity type
         public DbSet<Animal> Animal { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Enclosure> Enclosure { get; set; }
@@ -23,6 +24,16 @@ namespace DIERENTUIN13.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configure relationships and cascading deletes
+            ConfigureRelationships(modelBuilder);
+
+            // Add unique constraints to Name properties
+            AddUniqueConstraints(modelBuilder);
+        }
+
+        // Helper method to configure relationships and cascading deletes
+        private void ConfigureRelationships(ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Enclosure>()
                 .HasMany(e => e.Animals)
                 .WithOne(a => a.Enclosure)
@@ -41,6 +52,21 @@ namespace DIERENTUIN13.Data
                 .HasForeignKey(a => a.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
-    }
 
+        // Helper method to add unique constraints to Name properties
+        private void AddUniqueConstraints(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Enclosure>()
+                .HasIndex(e => e.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Zoo>()
+                .HasIndex(z => z.Name)
+                .IsUnique();
+        }
+    }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DIERENTUIN13.Data;
 using DIERENTUIN13.Models;
@@ -35,8 +34,6 @@ namespace DIERENTUIN13.Controllers
             return View(await zoos.ToListAsync());
         }
 
-
-
         // GET: Zoos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -64,8 +61,6 @@ namespace DIERENTUIN13.Controllers
         }
 
         // POST: Zoos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Zoo zoo)
@@ -96,8 +91,6 @@ namespace DIERENTUIN13.Controllers
         }
 
         // POST: Zoos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Zoo zoo)
@@ -171,3 +164,6 @@ namespace DIERENTUIN13.Controllers
         }
     }
 }
+
+
+
