@@ -48,7 +48,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="SpaceRequirement" class="control-label"></label>
-                <input asp-for="SpaceRequirement" class="form-control" />
+                <div class="input-group">
+                    <input asp-for="SpaceRequirement" class="form-control" type="number" step="any" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">m²</span>
+                    </div>
+                </div>
                 <span asp-validation-for="SpaceRequirement" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -77,5 +82,8 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+
+
 
 

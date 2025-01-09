@@ -10,9 +10,9 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<form asp-action="Filter" method="get">
+<form asp-action="Index" method="get">
     <p>
-        Find by name, species, or category: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+        Find by name, species, or category: <input type="text" name="searchString" />
         <input type="submit" value="Search" />
     </p>
 </form>
@@ -83,7 +83,7 @@
                     @Html.DisplayFor(modelItem => item.Enclosure.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SpaceRequirement)
+                    @Html.DisplayFor(modelItem => item.SpaceRequirement) m²
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SecurityRequirement)
@@ -144,3 +144,4 @@
         });
     </script>
 }
+

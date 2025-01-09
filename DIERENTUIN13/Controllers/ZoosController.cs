@@ -139,6 +139,8 @@ namespace DIERENTUIN13.Controllers
             }
 
             var zoo = await _context.Zoo
+                .Include(z => z.Enclosures)
+                    .ThenInclude(e => e.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (zoo == null)
             {
