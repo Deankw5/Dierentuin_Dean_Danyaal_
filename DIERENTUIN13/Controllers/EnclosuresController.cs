@@ -59,8 +59,6 @@ namespace DIERENTUIN13.Controllers
         public IActionResult Create()
         {
             ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name");
-            ViewData["Animals"] = new SelectList(_context.Animal, "Id", "Name");
-
             ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
                 .Cast<ClimateEnum>()
                 .Select(e => new SelectListItem
@@ -71,14 +69,6 @@ namespace DIERENTUIN13.Controllers
 
             ViewData["SecurityLevels"] = new SelectList(Enum.GetValues(typeof(SecurityLevelEnum))
                 .Cast<SecurityLevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Text = e.ToString(),
-                    Value = ((int)e).ToString()
-                }), "Value", "Text");
-
-            ViewData["Sizes"] = new SelectList(Enum.GetValues(typeof(SizeEnum))
-                .Cast<SizeEnum>()
                 .Select(e => new SelectListItem
                 {
                     Text = e.ToString(),
@@ -99,7 +89,7 @@ namespace DIERENTUIN13.Controllers
         // POST: Enclosures/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Climate,HabitatType,SecurityLevel,Size,ZooId,Animals")] Enclosure enclosure)
+        public async Task<IActionResult> Create([Bind("Id,Name,Climate,HabitatType,SecurityLevel,Size,ZooId")] Enclosure enclosure)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +99,29 @@ namespace DIERENTUIN13.Controllers
             }
 
             ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure.ZooId);
-            ViewData["Animals"] = new SelectList(_context.Animal, "Id", "Name", enclosure.Animals.Select(a => a.Id));
+            ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
+                .Cast<ClimateEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
+            ViewData["SecurityLevels"] = new SelectList(Enum.GetValues(typeof(SecurityLevelEnum))
+                .Cast<SecurityLevelEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
+            ViewData["HabitatTypes"] = new SelectList(Enum.GetValues(typeof(HabitatTypeEnum))
+                .Cast<HabitatTypeEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
 
             return View(enclosure);
         }
@@ -129,6 +141,30 @@ namespace DIERENTUIN13.Controllers
             }
 
             ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure.ZooId);
+            ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
+                .Cast<ClimateEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
+            ViewData["SecurityLevels"] = new SelectList(Enum.GetValues(typeof(SecurityLevelEnum))
+                .Cast<SecurityLevelEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
+            ViewData["HabitatTypes"] = new SelectList(Enum.GetValues(typeof(HabitatTypeEnum))
+                .Cast<HabitatTypeEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
             return View(enclosure);
         }
 
@@ -164,6 +200,30 @@ namespace DIERENTUIN13.Controllers
             }
 
             ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure.ZooId);
+            ViewData["ClimateTypes"] = new SelectList(Enum.GetValues(typeof(ClimateEnum))
+                .Cast<ClimateEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
+            ViewData["SecurityLevels"] = new SelectList(Enum.GetValues(typeof(SecurityLevelEnum))
+                .Cast<SecurityLevelEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
+            ViewData["HabitatTypes"] = new SelectList(Enum.GetValues(typeof(HabitatTypeEnum))
+                .Cast<HabitatTypeEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.ToString(),
+                    Value = ((int)e).ToString()
+                }), "Value", "Text");
+
             return View(enclosure);
         }
 

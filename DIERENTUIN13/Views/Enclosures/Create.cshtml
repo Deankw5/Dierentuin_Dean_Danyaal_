@@ -23,53 +23,42 @@
             <!-- Climate -->
             <div class="form-group">
                 <label asp-for="Climate" class="control-label"></label>
-                <select asp-for="Climate" class="form-control">
-                    @foreach (var climate in (SelectList)ViewData["ClimateTypes"])
-                    {
-                        <option value="@climate.Value">@climate.Text</option>
-                    }
-                </select>
+                <select asp-for="Climate" class="form-control" asp-items="ViewBag.ClimateTypes"></select>
                 <span asp-validation-for="Climate" class="text-danger"></span>
             </div>
 
             <!-- HabitatType -->
             <div class="form-group">
                 <label asp-for="HabitatType" class="control-label"></label>
-                <select asp-for="HabitatType" class="form-control">
-                    @foreach (var habitat in (SelectList)ViewData["HabitatTypes"])
-                    {
-                        <option value="@habitat.Value">@habitat.Text</option>
-                    }
-                </select>
+                <select asp-for="HabitatType" class="form-control" asp-items="ViewBag.HabitatTypes"></select>
                 <span asp-validation-for="HabitatType" class="text-danger"></span>
             </div>
 
             <!-- SecurityLevel -->
             <div class="form-group">
                 <label asp-for="SecurityLevel" class="control-label"></label>
-                <select asp-for="SecurityLevel" class="form-control">
-                    @foreach (var security in (SelectList)ViewData["SecurityLevels"])
-                    {
-                        <option value="@security.Value">@security.Text</option>
-                    }
-                </select>
+                <select asp-for="SecurityLevel" class="form-control" asp-items="ViewBag.SecurityLevels"></select>
                 <span asp-validation-for="SecurityLevel" class="text-danger"></span>
             </div>
 
             <!-- Size -->
             <div class="form-group">
                 <label asp-for="Size" class="control-label"></label>
-                <select asp-for="Size" class="form-control">
-                    @foreach (var size in (SelectList)ViewData["Sizes"])
-                    {
-                        <option value="@size.Value">@size.Text</option>
-                    }
-                </select>
+                <div class="input-group">
+                    <input asp-for="Size" class="form-control" type="number" step="any" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">m²</span>
+                    </div>
+                </div>
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
 
-            <!-- Animals (multiple select) -->
-            
+            <!-- Zoo -->
+            <div class="form-group">
+                <label asp-for="ZooId" class="control-label">Zoo</label>
+                <select asp-for="ZooId" class="form-control" asp-items="ViewBag.ZooId"></select>
+                <span asp-validation-for="ZooId" class="text-danger"></span>
+            </div>
 
             <!-- Submit button -->
             <div class="form-group">
